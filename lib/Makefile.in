@@ -1,0 +1,47 @@
+#
+# $Id: template.Makefile.in,v 1.7 2007/08/10 06:16:44 shirok Exp $
+#
+
+# General info
+SHELL       = @SHELL@
+prefix      = @prefix@
+exec_prefix = @exec_prefix@
+bindir      = @bindir@
+libdir      = @libdir@
+datadir     = @datadir@
+datarootdir = @datarootdir@
+srcdir      = @srcdir@
+VPATH       = $(srcdir)
+
+# These may be overridden by make invocators
+DESTDIR        =
+GOSH           = @GOSH@
+GAUCHE_CONFIG  = @GAUCHE_CONFIG@
+GAUCHE_PACKAGE = @GAUCHE_PACKAGE@
+INSTALL        = @GAUCHE_INSTALL@
+
+SCMFILES  = html2text.scm html2text/htmlprag.scm
+
+GENERATED = 
+CONFIG_GENERATED = Makefile
+
+GAUCHE_PKGLIBDIR  = $(DESTDIR)@GAUCHE_PKGLIBDIR@
+
+all : 
+
+check :
+
+install : all
+	$(INSTALL) -m 444 -T $(GAUCHE_PKGLIBDIR) $(SCMFILES) 
+
+uninstall :
+	$(INSTALL) -U $(GAUCHE_PKGLIBDIR) $(SCMFILES) 
+
+clean :
+	rm -rf core $(GENERATED) *~ test.log so_locations
+
+distclean : clean
+	rm -rf $(CONFIG_GENERATED)
+
+maintainer-clean : clean
+	rm -rf $(CONFIG_GENERATED) configure VERSION

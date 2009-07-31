@@ -1,0 +1,15 @@
+#! gosh
+;; -*- coding: utf-8 -*-
+
+(use html2text)
+
+(define (main args)
+  (display 
+    (html2text 
+      "http://example.com/"
+      (if (pair? (cdr args))
+        (call-with-input-file (cadr args) (cut port->string <>))
+        "<html><body><p><a href=\"http://example.com/foo/\">&amp;</a><a href=\"http://example.com/bar/\">bar</a></p></body></html>")))
+  0)
+
+;; vim: tabstop=2 shiftwidth=2 expandtab softtabstop=2 filetype=scheme
